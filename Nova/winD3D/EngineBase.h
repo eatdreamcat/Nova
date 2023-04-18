@@ -1,11 +1,11 @@
 #pragma once
 #include <string>
 
-class WindowBase
+class EngineBase
 {
 public :
-	WindowBase(UINT width, UINT height, std::wstring name);
-	virtual ~WindowBase();
+	EngineBase(UINT width, UINT height, std::wstring name);
+	virtual ~EngineBase();
 
 
 	virtual void OnInit() = 0;
@@ -35,10 +35,3 @@ private:
 	// Root assets path.
 	std::wstring m_assetsPath;
 };
-
-void MyFunction(_In_ int num1, _In_ int num2, _Use_decl_annotations_ _Out_ int* result)
-{
-	// do some calculation
-	
-	//*result = num1 + num2;
-}
