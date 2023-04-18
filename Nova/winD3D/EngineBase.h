@@ -4,7 +4,7 @@
 class EngineBase
 {
 public :
-	EngineBase(UINT width, UINT height, std::wstring name);
+	EngineBase(UINT width, UINT height, std::wstring name, D3D_FEATURE_LEVEL d3dFeatureLevel);
 	virtual ~EngineBase();
 
 
@@ -20,6 +20,12 @@ public :
 	// Accessors.
 	UINT GetWidth() const { return m_width; }
 	UINT GetHeight() const { return m_height; }
+
+	D3D_FEATURE_LEVEL GetFeatureLevel() const { return m_D3DFeatureLevel; }
+
+	void SetWidth(UINT width) { m_width = width; }
+	void SetHeight(UINT height) { m_height = height; }
+
 	const WCHAR* GetTitle() const { return m_title.c_str(); }
 
 	void ParseCommandLineArgs(_In_reads_(argc) WCHAR* argv[], int argc);
@@ -27,6 +33,12 @@ public :
 protected:
 
 	std::wstring GetAssetFullPath(LPCWSTR assetName);
+
+	void GetHardwareAdapter(
+		_In_ IDXGIFactory1* pFactory,
+		_Outptr_result_maybenull_ IDXGIAdapter1** ppAdapter,
+		bool requestHighPerformanceAdapter = false);
+
 	void SetCustomWindowText(LPCWSTR text);
 
 	// Viewport dimensions.
@@ -34,8 +46,11 @@ protected:
 	UINT m_height;
 	float m_aspectRatio;
 
-	// Adapter info.
+	// Adapter info. 是否使用集成显卡
 	bool m_useWarpDevice;
+
+	// level
+	D3D_FEATURE_LEVEL m_D3DFeatureLevel;
 private:
 	// Window title.
 	std::wstring m_title;

@@ -64,6 +64,61 @@ int Win32Application::Run(EngineBase* pEngine, HINSTANCE hInstance, int nCmdShow
 // Main message handler for the sample.
 LRESULT CALLBACK Win32Application::WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	EngineBase* pEngine = reinterpret_cast<EngineBase*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+
+	switch (message)
+	{
+	case WM_CREATE:
+		{
+			// Save the EngineBase* passed in to CreateWindow.
+			LPCREATESTRUCT pCreateStruct = reinterpret_cast<LPCREATESTRUCT>(lParam);
+			SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pCreateStruct->lpCreateParams));
+		}
+		return 0;
+
+	case WM_KEYDOWN:
+		if (pEngine)
+		{
+			pEngine->OnKeyDown(static_cast<UINT8>(wParam));
+		}
+		return 0;
+
+	case WM_KEYUP:
+		if (pEngine)
+		{
+			pEngine->OnKeyUp(static_cast<UINT8>(wParam));
+		}
+		return 0;
+
+	case WM_PAINT:
+		if (pEngine)
+		{
+			pEngine->OnUpdate();
+			pEngine->OnRender();
+		}
+		return 0;
+
+	case WM_SIZING:
+		
+		if (pEngine) {
+
+			RECT* pRect = (RECT*)lParam;
+			int newWidth = pRect->right - pRect->left;
+			int newHeight = pRect->bottom - pRect->top;
+
+			pEngine->SetWidth(newWidth);
+			pEngine->SetHeight(newHeight);
+
+		}
+
+		return 0;
+
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		return 0;
+
+	}
+
 	// Handle any messages the switch statement didn't.
 	return DefWindowProc(hWnd, message, wParam, lParam);
 }

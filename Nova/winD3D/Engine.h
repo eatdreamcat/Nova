@@ -3,7 +3,7 @@
 class Engine : public EngineBase
 {
 public :
-	Engine(UINT width, UINT height, std::wstring name);
+	Engine(UINT width, UINT height, std::wstring name, D3D_FEATURE_LEVEL d3dFeatureLevel);
     virtual void OnInit();
     virtual void OnUpdate();
     virtual void OnRender();
@@ -12,7 +12,7 @@ public :
 
 private:
     static const UINT FrameCount = 2;
-
+   
     // Pipeline objects.
     ComPtr<IDXGISwapChain3> m_swapChain;
     ComPtr<ID3D12Device> m_device;
