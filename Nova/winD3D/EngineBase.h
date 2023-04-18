@@ -1,6 +1,6 @@
 #pragma once
-#include <string>
 
+#include"Helper.h"
 class EngineBase
 {
 public :
@@ -10,6 +10,7 @@ public :
 
 	virtual void OnInit() = 0;
 	virtual void OnUpdate() = 0;
+	virtual void OnRender() = 0;
 	virtual void OnDestroy() = 0;
 
 	// Samples override the event handlers to handle specific messages.
@@ -21,14 +22,20 @@ public :
 	UINT GetHeight() const { return m_height; }
 	const WCHAR* GetTitle() const { return m_title.c_str(); }
 
+	void ParseCommandLineArgs(_In_reads_(argc) WCHAR* argv[], int argc);
+
 protected:
 
 	std::wstring GetAssetFullPath(LPCWSTR assetName);
+	void SetCustomWindowText(LPCWSTR text);
 
 	// Viewport dimensions.
 	UINT m_width;
 	UINT m_height;
 	float m_aspectRatio;
+
+	// Adapter info.
+	bool m_useWarpDevice;
 private:
 	// Window title.
 	std::wstring m_title;

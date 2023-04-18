@@ -24,7 +24,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="Main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="d3d12Implement.cpp">
@@ -34,7 +34,13 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="EngineBase.cpp">
+      <Filter>rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Win32Application.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -44,11 +50,17 @@
     <ClInclude Include="stdafx.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="EngineBase.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Helper.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineBase.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Win32Application.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>rendering</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
