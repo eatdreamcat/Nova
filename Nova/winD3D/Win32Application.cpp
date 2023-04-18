@@ -55,7 +55,7 @@ int Win32Application::Run(EngineBase* pEngine, HINSTANCE hInstance, int nCmdShow
 		}
 	}
 
-
+	pEngine->OnDestroy();
 	// Return this part of the WM_QUIT message to Windows.
 	return static_cast<char>(msg.wParam);
 }

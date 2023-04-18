@@ -1,6 +1,8 @@
 #pragma once
 
 #include"Helper.h"
+#include "Win32Application.h"
+
 class EngineBase
 {
 public :

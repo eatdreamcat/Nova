@@ -160,6 +160,7 @@
     <ClCompile Include="EngineBase.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="d3dx12.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Win32Application.h" />
     <ClInclude Include="D3D12Implement.h" />
