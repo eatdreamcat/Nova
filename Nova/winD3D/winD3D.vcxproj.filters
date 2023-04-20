@@ -22,6 +22,12 @@
     <Filter Include="rendering">
       <UniqueIdentifier>{3da42da9-9db1-4205-97dc-c011328d0a96}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{c7bb5658-c316-4bbd-9a45-81dc7e0261ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Shaders">
+      <UniqueIdentifier>{30cca53e-6dda-4b39-a54f-adc30db8971c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -65,5 +71,10 @@
     <ClInclude Include="d3dx12.h">
       <Filter>头文件</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="shaders.hlsl">
+      <Filter>Assets\Shaders</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

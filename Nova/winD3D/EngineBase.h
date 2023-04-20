@@ -27,6 +27,7 @@ public :
 
 	void SetWidth(UINT width) { m_width = width; }
 	void SetHeight(UINT height) { m_height = height; }
+	void UpdateAspectRatio() { m_aspectRatio = static_cast<float>(m_width) / static_cast<float>(m_height); }
 
 	const WCHAR* GetTitle() const { return m_title.c_str(); }
 

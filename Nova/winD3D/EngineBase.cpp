@@ -17,8 +17,7 @@ EngineBase::EngineBase(UINT width, UINT height, std::wstring name, D3D_FEATURE_L
 	WCHAR assetsPath[512];
 	GetAssetsPath(assetsPath, _countof(assetsPath));
 	m_assetsPath = assetsPath;
-
-	m_aspectRatio = static_cast<float>(width) / static_cast<float>(height);
+	UpdateAspectRatio();
 }
 
 EngineBase::~EngineBase()
@@ -28,6 +27,8 @@ EngineBase::~EngineBase()
 // Helper function for resolving the full path of assets.
 std::wstring EngineBase::GetAssetFullPath(LPCWSTR assetName)
 {
+    
+
 	return m_assetsPath + assetName;
 }
 

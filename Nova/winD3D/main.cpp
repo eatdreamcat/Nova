@@ -48,7 +48,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
 #if defined(_DEBUG)
     RedirectIOToConsole();
 #endif
-    std::cout << "WinMain" << std::endl;
+    std::cout << "WinMain:" <<hInstance->unused<< std::endl;
 	auto engine = Engine(1280, 720, L"Hello Nove", D3D_FEATURE_LEVEL_11_0);
 	return Win32Application::Run(&engine, hInstance, nCmdShow);
 }
