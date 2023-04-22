@@ -20,8 +20,8 @@ struct PSInput
     float2 uv : TEXCOORD;
 };
 
-Texture2D g_texture : register(t0);
-SamplerState g_sampler : register(s0);
+Texture2D g_texture : register(t2);
+SamplerState g_sampler : register(s5);
 
 
 PSInput VSMain(VSInput input)
