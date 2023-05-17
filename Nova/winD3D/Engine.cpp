@@ -111,7 +111,7 @@ void Engine::PopulateCommandList()
 
     ID3D12DescriptorHeap* ppHeaps[] = { m_srvHeap.Get() };
     m_commandList->SetDescriptorHeaps(_countof(ppHeaps), ppHeaps);
-
+  
     m_commandList->SetGraphicsRootDescriptorTable(0, m_srvHeap->GetGPUDescriptorHandleForHeapStart());
     m_commandList->RSSetViewports(1, &m_viewport);
     m_commandList->RSSetScissorRects(1, &m_scissorRect);
@@ -128,10 +128,15 @@ void Engine::PopulateCommandList()
     // Record commands.
     const float clearColor[] = { 0.0f, 0.2f, 0.4f, 1.0f };
     m_commandList->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
+
+
+    // Set necessary state. record to bundle while app startup
+   /* m_commandList->SetGraphicsRootSignature(m_rootSignature.Get());
     m_commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
     m_commandList->IASetVertexBuffers(0, 1, &m_vertexBufferView);
-    m_commandList->DrawInstanced(3, 1, 0, 0);
+    m_commandList->DrawInstanced(3, 1, 0, 0);*/
 
+    m_commandList->ExecuteBundle(m_bundle.Get());
     // Indicate that the back buffer will now be used to present.
     resourceBarrier = CD3DX12_RESOURCE_BARRIER::Transition(m_renderTargets[m_frameIndex].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
     m_commandList->ResourceBarrier(1, &resourceBarrier);
@@ -261,6 +266,7 @@ void Engine::LoadPipeline()
             rtvHandle.Offset(1, m_rtvDescriptorSize);
 
             ThrowIfFailed(m_device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&m_commandAllocators[n])));
+            ThrowIfFailed(m_device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_BUNDLE, IID_PPV_ARGS(&m_bundleAllocators[n])));
         }
     }
 }
@@ -358,6 +364,7 @@ void Engine::LoadAssets()
 
     // Create the command list.
     ThrowIfFailed(m_device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, m_commandAllocators[m_frameIndex].Get(), nullptr, IID_PPV_ARGS(&m_commandList)));
+    ThrowIfFailed(m_device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_BUNDLE, m_bundleAllocators[m_frameIndex].Get(), m_pipelineState.Get(), IID_PPV_ARGS(&m_bundle)));
 
    
     // Create the vertex buffer.
@@ -469,6 +476,13 @@ void Engine::LoadAssets()
     ID3D12CommandList* ppCommandLists[] = { m_commandList.Get() };
     m_commandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
 
+    // record bundle 
+    
+     m_bundle->SetGraphicsRootSignature(m_rootSignature.Get());
+     m_bundle->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+     m_bundle->IASetVertexBuffers(0, 1, &m_vertexBufferView);
+     m_bundle->DrawInstanced(3, 1, 0, 0);
+     ThrowIfFailed(m_bundle->Close());
 
     // Create synchronization objects.
     {
