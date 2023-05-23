@@ -50,5 +50,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
 #endif
     std::cout << "WinMain:" <<hInstance->unused<< std::endl;
 	auto engine = Engine(1280, 720, L"Hello Nove", D3D_FEATURE_LEVEL_11_0);
-	return Win32Application::Run(&engine, hInstance, nCmdShow);
+    int errorCode = -1;
+#if defined(_DEBUG)
+    try {
+#endif
+        errorCode = Win32Application::Run(&engine, hInstance, nCmdShow);
+#if defined(_DEBUG)
+    }
+    catch (invalid_argument& e)
+    {
+        std::cerr << e.what() << std::endl;
+        return -1;
+    }
+#endif
+	return errorCode;
 }
