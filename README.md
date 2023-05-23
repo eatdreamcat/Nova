@@ -9,7 +9,7 @@ DX Sample 的学习记录
 
 主要是搭建环境，然后创建基础的流程
 
-1.管线的创建
+1.管线的创建 \n
   1.1 获取device
   1.2 创建QUEUE
   1.3 创建SwapChain
