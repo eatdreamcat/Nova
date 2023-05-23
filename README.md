@@ -91,7 +91,7 @@ ConstantBuffer是在DX10的时候提出，使得不同shader可以共用数据�
         cbvsrvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
         ThrowIfFailed(m_device->CreateDescriptorHeap(&cbvsrvHeapDesc, IID_PPV_ARGS(&m_cbvsrvHeap)));
 ```
-因为资源的存放在堆中是连续的，且DX的desc是按照固定的内存偏移(256B)来对齐的。所以Cbuffer需要做好对齐。
+因为资源的存放在堆中是连续的，且DX的desc是按照固定的内存偏移来对齐的。所以Cbuffer需要做好对齐。
 
 然后在分别绑定资源的desc的时候，也需要指定好heap的偏移，比如我这里先设置cbuffer，再设置texture
 ```
@@ -108,5 +108,8 @@ ConstantBuffer是在DX10的时候提出，使得不同shader可以共用数据�
 ```
 
 啊，其实还是有很多不理解跟迷惑的地方。但是，总算是先跑起来了。。
+
+TODO:
+为什么cb必须是256B的整数倍呢？
 
 https://github.com/eatdreamcat/Nova/releases/tag/2023.5.23
