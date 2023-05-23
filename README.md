@@ -1,4 +1,4 @@
-# Nova
+# Hello系列
 DX Sample 的学习记录
 
 ## 2023.4.18 创建window 
